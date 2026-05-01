@@ -390,6 +390,90 @@
     to   { text-shadow: 0 0 50px rgba(255,150,200,1.0), 0 0 90px rgba(255,80,160,0.7); }
   }
 
+  /* ── Gift button ── */
+  .gift-wrap {
+    display: flex; flex-direction: column; align-items: center;
+    margin-top: 0.6rem; margin-bottom: 0.2rem;
+    animation: fadeUp 1.6s ease both 0.15s;
+  }
+  .gift-btn {
+    position: relative;
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 2px solid rgba(255,107,172,0.55);
+    background: rgba(0,0,0,0.25);
+    font-size: 1.9rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 22px rgba(233,30,140,0.35), inset 0 0 12px rgba(255,107,172,0.08);
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    animation: gift-idle 3.2s ease-in-out infinite;
+    overflow: visible;
+  }
+  .gift-btn:hover {
+    border-color: #e91e8c;
+    box-shadow: 0 0 40px rgba(233,30,140,0.7), inset 0 0 20px rgba(255,107,172,0.15);
+    transform: scale(1.15) rotate(-5deg);
+  }
+  .gift-btn:active { transform: scale(0.92); }
+  @keyframes gift-idle {
+    0%,100% { transform: translateY(0) rotate(-3deg) scale(1); }
+    50%     { transform: translateY(-5px) rotate(3deg) scale(1.05); }
+  }
+  .gift-hint {
+    font-size: 0.72rem; color: #f48fb1; letter-spacing: 0.14em;
+    text-transform: uppercase; margin-top: 0.4rem; opacity: 0.65;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* Burst flower particles */
+  .burst-flower {
+    position: fixed; pointer-events: none; z-index: 999;
+    font-size: var(--bfs); opacity: 0;
+    animation: burst-out var(--bdur) ease-out forwards;
+  }
+  @keyframes burst-out {
+    0%   { opacity: 0; transform: translate(-50%,-50%) scale(0.2) rotate(0deg); }
+    15%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(calc(-50% + var(--bx)), calc(-50% + var(--by))) scale(1.1) rotate(var(--br)); }
+  }
+
+  /* Gift note card */
+  .gift-note-card {
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height 0.75s cubic-bezier(0.16,1,0.3,1), opacity 0.5s, margin 0.5s;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,107,172,0.3);
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    max-width: 420px; width: 100%;
+    padding: 0 1.4rem;
+    margin-top: 0;
+    text-align: center;
+  }
+  .gift-note-card.open {
+    max-height: 400px; opacity: 1;
+    padding: 1.4rem 1.6rem;
+    margin-top: 1rem;
+  }
+  .gift-note-card p {
+    font-size: 0.97rem; font-style: italic; color: #fce4ec;
+    line-height: 1.95; letter-spacing: 0.025em;
+  }
+  .gift-note-card .gift-note-sign {
+    font-family: 'Sacramento', cursive;
+    color: #ff6bac; font-size: 1.3rem; margin-top: 0.7rem;
+    display: block;
+    text-shadow: 0 0 14px rgba(255,107,172,0.5);
+  }
+  .gift-note-card .gift-flowers-row {
+    font-size: 1.3rem; letter-spacing: 0.3em; margin-bottom: 0.5rem;
+    filter: hue-rotate(0deg);
+    animation: hue-spin 4s linear infinite;
+  }
+  @keyframes hue-spin {
+    to { filter: hue-rotate(360deg); }
+  }
+
   /* ── Day counter ── */
   .day-counter {
     position: fixed;
@@ -457,6 +541,89 @@
     .day-counter-number { font-size: 1.9rem; }
   }
 
+  /* ── Birthday countdown (left side) ── */
+  .bday-counter {
+    position: fixed;
+    top: 50%;
+    left: 1.5rem;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    animation: fadeUp 1.6s ease both 0.7s;
+  }
+  .bday-counter-inner {
+    background: rgba(10, 0, 20, 0.6);
+    border: 1px solid rgba(255,107,172,0.4);
+    border-radius: 18px;
+    padding: 1.1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 24px rgba(255,107,172,0.2), inset 0 0 30px rgba(100,0,50,0.1);
+    min-width: 80px;
+    cursor: default;
+  }
+  .bday-counter-icon {
+    font-size: 1.4rem;
+    animation: bday-bob 2.4s ease-in-out infinite;
+  }
+  @keyframes bday-bob {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50%     { transform: translateY(-5px) rotate(5deg); }
+  }
+  .bday-counter-number {
+    font-family: 'Italiana', serif;
+    font-size: 2.4rem;
+    color: #fce4ec;
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(255,107,172,0.7);
+    letter-spacing: 0.02em;
+  }
+  .bday-counter-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.7rem;
+    color: #f48fb1;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .bday-counter-sublabel {
+    font-family: 'Sacramento', cursive;
+    font-size: 1.35rem;
+    color: #ff6bac;
+    opacity: 0.9;
+    text-align: center;
+    max-width: 80px;
+    line-height: 1.3;
+    text-shadow: 0 0 10px rgba(255,107,172,0.5);
+  }
+  /* birthday mode — glows pink when it's the day! */
+  .bday-counter-inner.its-today {
+    border-color: #ff6bac;
+    box-shadow: 0 0 40px rgba(255,107,172,0.7), inset 0 0 30px rgba(255,0,100,0.15);
+    animation: bday-pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes bday-pulse {
+    0%,100% { box-shadow: 0 0 40px rgba(255,107,172,0.7); }
+    50%     { box-shadow: 0 0 70px rgba(255,107,172,1.0), 0 0 120px rgba(233,30,140,0.5); }
+  }
+  @media (max-width: 600px) {
+    .bday-counter {
+      position: fixed;
+      top: auto;
+      bottom: 5.5rem;
+      left: 0.8rem;
+      transform: none;
+    }
+    .bday-counter-inner { padding: 0.8rem 0.75rem; min-width: 66px; }
+    .bday-counter-number { font-size: 1.9rem; }
+  }
+
   /* Toast notification */
   .toast {
     position: fixed; top: 2rem; left: 50%; transform: translateX(-50%) translateY(-80px);
@@ -485,6 +652,16 @@
 <div id="mini-hearts"></div>
 <div id="music-notes"></div>
 
+<!-- Birthday countdown (left side) -->
+<div class="bday-counter" id="bdayCounter">
+  <div class="bday-counter-inner" id="bdayInner">
+    <span class="bday-counter-icon">🎂</span>
+    <span class="bday-counter-number" id="bdayCount">–</span>
+    <span class="bday-counter-label">days</span>
+  </div>
+  <span class="bday-counter-sublabel">mah baby's<br>birthday 🎀</span>
+</div>
+
 <!-- Day counter -->
 <div class="day-counter" id="dayCounter">
   <div class="day-counter-inner">
@@ -508,6 +685,22 @@
     <canvas id="heart-canvas" width="300" height="300"></canvas>
   </div>
   <div class="monthsary-heading">Happy 5th Monthsary Baby 💕</div>
+
+  <!-- Gift button -->
+  <div class="gift-wrap">
+    <button class="gift-btn" id="giftBtn" title="a little something for you">🎁</button>
+    <div class="gift-hint">pop me ✨</div>
+  </div>
+  <div class="gift-note-card" id="giftNoteCard">
+    <div class="gift-flowers-row">🌸 🌺 🌷 🌼 🌸</div>
+    <p>
+      Five months of you and me, and every single day I'm still amazed that I get to be the person you talk to,
+      laugh with, and love.<br><br>
+      Here's a flower to every soft little moment we've shared, and every one still coming baby. 🌷
+    </p>
+    <span class="gift-note-sign">— five months of loving you baby, -Umar 💗</span>
+  </div>
+
   <h1 class="title">Reynalyn, For You, Baby</h1>
   <div class="divider"></div>
   <p class="message">
@@ -679,7 +872,42 @@
   document.getElementById('dayCount').textContent = totalDays;
 })();
 
-// ── Stars ──────────────────────────────────────────────────────────────
+// ── Birthday Countdown (July 24) ──────────────────────────────────────
+(function(){
+  function calcBdayDays() {
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    // next July 24
+    let bday = new Date(today.getFullYear(), 6, 24); // month is 0-indexed
+    if (bday < today) bday.setFullYear(bday.getFullYear() + 1);
+    const diff = Math.round((bday - today) / (1000 * 60 * 60 * 24));
+    return diff;
+  }
+
+  const days = calcBdayDays();
+  const numEl = document.getElementById('bdayCount');
+  const inner = document.getElementById('bdayInner');
+  const sub   = document.querySelector('.bday-counter-sublabel');
+
+  if (days === 0) {
+    numEl.textContent = '🎉';
+    inner.classList.add('its-today');
+    sub.innerHTML = "it's the 24th!<br>Happy Birthday MAH BABYYYY!!!! , MWAH😘🎀";
+    showToast('🎂 Today is mah baby\'s birthday!! 🎉💕');
+  } else {
+    numEl.textContent = days;
+  }
+
+  // re-calculate at midnight
+  const now = new Date();
+  const msUntilMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1) - now;
+  setTimeout(() => {
+    const fresh = calcBdayDays();
+    document.getElementById('bdayCount').textContent = fresh === 0 ? '🎉' : fresh;
+  }, msUntilMidnight);
+})();
+
+
 const starsEl = document.getElementById('stars');
 for (let i = 0; i < 160; i++){
   const s = document.createElement('div'); s.className = 'star';
@@ -842,6 +1070,43 @@ document.querySelectorAll('.polaroid').forEach((p, i) => {
     showToast(polaroidMessages[i]);
     burstHearts(p);
   });
+});
+
+// ── Gift button ──────────────────────────────────────────────────────
+const BURST_FLOWERS = ['🌸','🌺','🌷','🌼','💐','✿','❀','🌹'];
+let giftOpen = false;
+document.getElementById('giftBtn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  giftOpen = !giftOpen;
+  const card = document.getElementById('giftNoteCard');
+  card.classList.toggle('open', giftOpen);
+
+  if (giftOpen) {
+    // burst flowers out from button
+    const rect = e.currentTarget.getBoundingClientRect();
+    const cx = rect.left + rect.width / 8;
+    const cy = rect.top  + rect.height / 10;
+    const count = 118;
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'burst-flower';
+        const angle  = (i / count) * 360 + Math.random() * 20;
+        const dist   = 80 + Math.random() * 140;
+        const rad    = angle * Math.PI / 180;
+        const bx     = Math.cos(rad) * dist;
+        const by     = Math.sin(rad) * dist;
+        const fs     = (14 + Math.random() * 14).toFixed(0);
+        const dur    = (0.65 + Math.random() * 0.6).toFixed(2);
+        const rot    = (Math.random() * 720 - 360).toFixed(0);
+        el.textContent = BURST_FLOWERS[Math.floor(Math.random() * BURST_FLOWERS.length)];
+        el.style.cssText = `left:${cx}px;top:${cy}px;--bfs:${fs}px;--bdur:${dur}s;--bx:${bx}px;--by:${by}px;--br:${rot}deg;`;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), parseFloat(dur) * 1000 + 100);
+      }, i * 18);
+    }
+    showToast('🌸 five months of you — the best kind of forever 💕');
+  }
 });
 
 // ── Helpers ───────────────────────────────────────────────────────────
