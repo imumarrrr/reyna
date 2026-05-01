@@ -374,6 +374,89 @@
     letter-spacing: 0.05em; font-style: italic;
   }
 
+  /* ── Monthsary heading ── */
+  .monthsary-heading {
+    font-family: 'Sacramento', cursive;
+    font-size: clamp(2rem, 5.5vw, 3.2rem);
+    color: #ff6bac;
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin-bottom: 0.3rem;
+    text-shadow: 0 0 30px rgba(255,107,172,0.7), 0 0 60px rgba(233,30,140,0.4);
+    animation: fadeUp 1.6s ease both 0s, shimmer-text 3s ease-in-out infinite alternate;
+  }
+  @keyframes shimmer-text {
+    from { text-shadow: 0 0 30px rgba(255,107,172,0.7), 0 0 60px rgba(233,30,140,0.4); }
+    to   { text-shadow: 0 0 50px rgba(255,150,200,1.0), 0 0 90px rgba(255,80,160,0.7); }
+  }
+
+  /* ── Day counter ── */
+  .day-counter {
+    position: fixed;
+    top: 50%;
+    right: 1.5rem;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    animation: fadeUp 1.6s ease both 0.5s;
+  }
+  .day-counter-inner {
+    background: rgba(10, 0, 20, 0.6);
+    border: 1px solid rgba(233,30,140,0.4);
+    border-radius: 18px;
+    padding: 1.1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 24px rgba(233,30,140,0.2), inset 0 0 30px rgba(100,0,50,0.1);
+    min-width: 80px;
+  }
+  .day-counter-icon {
+    font-size: 1.4rem;
+    animation: heartbeat-glow 1.8s ease-in-out infinite;
+  }
+  .day-counter-number {
+    font-family: 'Italiana', serif;
+    font-size: 2.4rem;
+    color: #f8bbd0;
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(248,187,208,0.6);
+    letter-spacing: 0.02em;
+  }
+  .day-counter-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.7rem;
+    color: #f48fb1;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .day-counter-sublabel {
+    font-family: 'Sacramento', cursive;
+    font-size: 2.25rem;
+    color: #e91e8c;
+    opacity: 0.9;
+    text-align: center;
+    max-width: 80px;
+    text-shadow: 0 0 10px rgba(233,30,140,0.5);
+  }
+  @media (max-width: 600px) {
+    .day-counter {
+      position: fixed;
+      top: auto;
+      bottom: 5.5rem;
+      right: 0.8rem;
+      transform: none;
+    }
+    .day-counter-inner { padding: 0.8rem 0.75rem; min-width: 66px; }
+    .day-counter-number { font-size: 1.9rem; }
+  }
+
   /* Toast notification */
   .toast {
     position: fixed; top: 2rem; left: 50%; transform: translateX(-50%) translateY(-80px);
@@ -402,6 +485,16 @@
 <div id="mini-hearts"></div>
 <div id="music-notes"></div>
 
+<!-- Day counter -->
+<div class="day-counter" id="dayCounter">
+  <div class="day-counter-inner">
+    <span class="day-counter-icon">💗</span>
+    <span class="day-counter-number" id="dayCount">152</span>
+    <span class="day-counter-label">days</span>
+  </div>
+  <span class="day-counter-sublabel">together 🌙</span>
+</div>
+
 <!-- Floating kiss button -->
 <button class="kiss-btn" id="kissBtn" title="Send a kiss!">😘
   <span class="kiss-count" id="kissCount">0</span>
@@ -414,6 +507,7 @@
   <div class="heart-wrap">
     <canvas id="heart-canvas" width="300" height="300"></canvas>
   </div>
+  <div class="monthsary-heading">Happy 5th Monthsary Baby 💕</div>
   <h1 class="title">Reynalyn, For You, Baby</h1>
   <div class="divider"></div>
   <p class="message">
@@ -570,6 +664,19 @@
     renderer.render(scene, camera);
   }
   animate();
+})();
+
+// ── Day Counter (auto-updates daily from base date) ──────────────────
+(function(){
+  // Base: 152 days as of today (May 1, 2026)
+  const BASE_DAYS = 152;
+  const BASE_DATE = new Date('2026-05-01');
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  BASE_DATE.setHours(0,0,0,0);
+  const diff = Math.round((today - BASE_DATE) / (1000 * 60 * 60 * 24));
+  const totalDays = BASE_DAYS + diff;
+  document.getElementById('dayCount').textContent = totalDays;
 })();
 
 // ── Stars ──────────────────────────────────────────────────────────────
