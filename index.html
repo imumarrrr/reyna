@@ -886,7 +886,7 @@
 <div class="day-counter" id="dayCounter">
   <div class="day-counter-inner">
     <span class="day-counter-icon">💗</span>
-    <span class="day-counter-number" id="dayCount">152</span>
+    <span class="day-counter-number" id="dayCount">:(</span>
     <span class="day-counter-label">days</span>
   </div>
   <span class="day-counter-sublabel">together 🌙</span>
@@ -1217,18 +1217,8 @@
   animate();
 })();
 
-// ── Day Counter (auto-updates daily from base date) ──────────────────
-(function(){
-  // Base: 152 days as of today (May 1, 2026)
-  const BASE_DAYS = 152;
-  const BASE_DATE = new Date('2026-05-01');
-  const today = new Date();
-  today.setHours(0,0,0,0);
-  BASE_DATE.setHours(0,0,0,0);
-  const diff = Math.round((today - BASE_DATE) / (1000 * 60 * 60 * 24));
-  const totalDays = BASE_DAYS + diff;
-  document.getElementById('dayCount').textContent = totalDays;
-})();
+// ── Day Counter ──────────────────────────────────────────────────────
+document.getElementById('dayCount').textContent = ':(';
 
 // ── Birthday Countdown (July 24) ──────────────────────────────────────
 (function(){
