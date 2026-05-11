@@ -1517,7 +1517,34 @@
 })();
 
 // ── Day Counter ──────────────────────────────────────────────────────
-document.getElementById('dayCount').textContent = ':(';
+// ── Day Counter ──────────────────────────────────────────────────────
+(function(){
+  const START_DATE = new Date(2025, 11, 1); // December 1, 2025
+  START_DATE.setHours(0, 0, 0, 0);
+
+  function calcDaysTogether() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const diff = Math.floor((today - START_DATE) / (1000 * 60 * 60 * 24)) + 1;
+    return diff > 0 ? diff : 1;
+  }
+
+  function updateCounter() {
+    document.getElementById('dayCount').textContent = calcDaysTogether();
+  }
+
+  updateCounter();
+
+  function scheduleNextUpdate() {
+    const now = new Date();
+    const msUntilMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1) - now;
+    setTimeout(() => {
+      updateCounter();
+      scheduleNextUpdate();
+    }, msUntilMidnight);
+  }
+  scheduleNextUpdate();
+})();
 
 // ── Birthday Countdown (July 24) ──────────────────────────────────────
 (function(){
